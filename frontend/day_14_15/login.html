@@ -14,14 +14,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login and Registration</title>
-    <script type="text/javascript" src="./validation.js"></script>
+    <link type="style" href="css/bootstrap.css">
 </head>
 <body>
-    <form id="form">
-        <label for="username"></label>
-        <input type="text" id="username">
-        <label for="password"></label>
-        <input type="password">
+    <script id="validationScript" name="validationScript" type="text/javascript" src="js/validation.js"></script>
+    <h1>Login </h1>
+    <form id="loginForm" name="loginForm">
+        <label for="loginUsername">Username<br></label >
+        <input type="text" id="loginUsername" name="loginUsername" placeholder="Enter username" required><br>
+
+        <label for="loginPassword">Password<br></label>
+        <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" required><br>
+
+        <button type="button" id="loginBtn" name="loginBtn" onclick="login()">Login</button><br>
+        <a id="signupLink" name="signupLink" href ="./registeration.html">Sign up</a>
     </form>
 </body>
 </html>
