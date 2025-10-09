@@ -1,6 +1,7 @@
 package com.wecp.progressive.jwt;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -9,24 +10,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.wecp.progressive.service.impl.UserLoginServiceImpl;
+
+import io.jsonwebtoken.Claims;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter{
     
     private final JwtUtil jwtUtil;
-    private final UserLoginServiceImpl userLoginServiceImpl;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public JwtRequestFilter(JwtUtil jwtUtil, UserLoginServiceImpl userLoginServiceImpl) {
+    public JwtRequestFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
-        this.userLoginServiceImpl = userLoginServiceImpl;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -40,12 +46,15 @@ public class JwtRequestFilter extends OncePerRequestFilter{
             String username = jwtUtil.extractUsername(token);
 
             if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-                UserDetails userDetailsObj = userLoginServiceImpl.loadUserByUsername(username);
+                UserDetails userDetailsObj = userDetailsService.loadUserByUsername(username);
 
                 if(jwtUtil.validateToken(token, userDetailsObj)){
+                    Claims claims = jwtUtil.extractAllClaims(token);
+                    Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList((String) claims.get("role"));
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetailsObj,null,userDetailsObj.getAuthorities()
-                    );
+                        userDetailsObj,null,authorities);
+                    
+
 
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

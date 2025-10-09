@@ -5,8 +5,10 @@ public class LoginResponse {
    private String roles;
    private Integer userId;
 
-   public LoginResponse(String token) {
+   public LoginResponse(String token,String roles,Integer userId) {
       this.token = token;
+      this.roles = roles;
+      this.userId = userId;
    }
    public String getToken() {
       return token;

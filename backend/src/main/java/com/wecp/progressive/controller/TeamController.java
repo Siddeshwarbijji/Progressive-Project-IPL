@@ -44,7 +44,7 @@ public class TeamController {
 
     // @Autowired
     // @Qualifier("teamServiceImplArrayList")
-    private TeamServiceImplArraylist teamServiceImplArrayList;
+    private TeamServiceImplArraylist teamServiceImplArrayList = new TeamServiceImplArraylist();
 
     @Autowired
     private TeamServiceImplJpa teamServiceImplJpa;
