@@ -1,0 +1,18 @@
+<h3>Create Cricketer</h3>
+<div *ngIf="showCricketers">
+<div  *ngFor="let cricketer of cricketers">
+    <p><strong>Cricketer Name:</strong> {{cricketerName}}</p>
+    <p><strong>Age:</strong> {{cricketer.age}}</p>
+    <p><strong>Nationality:</strong> {{cricketer.nationality}}</p>
+    <p><strong>Role:</strong> {{cricketer.role}}</p>
+    <p><strong>Total Runs:</strong> {{cricketer.totalRuns}}</p>
+    <p><strong>Total Wickets:</strong> {{cricketer.totalWickets}}</p>
+    <p><strong>Experience:</strong> {{cricketer.expirence}}</p>
+    <p><strong>Team ID:</strong> {{cricketer.cricketerId}}</p>
+</div>
+</div>
+<div *ngIf="!showCricketers">
+    <p>No Cricketers Found to Display</p>
+</div>
+
+<button type="button" (click)="toggleCricketers()">Display</button>

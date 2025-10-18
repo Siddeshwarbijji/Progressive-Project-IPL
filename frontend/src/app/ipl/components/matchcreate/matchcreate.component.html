@@ -1,0 +1,56 @@
+<h3>Create Match</h3>
+<form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
+
+    <label for="firstTeamId">First Team ID:</label>
+    <input type="number" id="firstTeamId" name="firstTeamId" formControlName="firstTeamId" required>
+    <div>
+        <small *ngIf="firstTeamId?.invalid && firstTeamId?.touched">First Team ID is required.</small>
+    </div>
+
+    <label for="secondTeamId">Second Team ID:</label>
+    <input type="number" id="secondTeamId" name="secondTeamId" formControlName="secondTeamId" required>
+    <div>
+        <small *ngIf="secondTeamId?.invalid && secondTeamId?.touched">Second Team ID is required.</small>
+    </div>
+
+    <label for="matchDate">Match Date:</label>
+    <input type="date" id="matchDate" name="matchDate" formControlName="matchDate" required>
+    <div>
+        <small *ngIf="matchDate?.invalid && matchDate?.touched">Match Date is required.</small>
+    </div>
+
+    <label for="venue">Venue:</label>
+    <input type="text" id="venue" name="venue" formControlName="venue" required>
+    <div>
+        <small *ngIf="venue?.invalid && venue?.touched">Venue is required.</small>
+    </div>
+
+    <label for="result">Result:</label>
+    <input type="text" id="result" name="result" formControlName="result" required>
+    <div>
+        <small *ngIf="result?.invalid && result?.touched">Result is required.</small>
+    </div>
+    
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status" formControlName="status" required>
+    <div>
+        <small *ngIf="status?.invalid && status?.touched">Result is required.</small>
+    </div>
+
+    <label for="winnerTeamId">Winner Team ID:</label>
+    <input type="number" id="winnerTeamId" name="winnerTeamId" formControlName="winnerTeamId" required>
+    <div>
+        <small *ngIf="winnerTeamId?.invalid && winnerTeamId?.touched">Winner Team ID is required.</small>
+    </div>
+
+
+    <button type="submit" [disabled]="!matchForm.valid">Create Match</button>
+    <a routerLink="/ipl" class="task-list">Dashboard</a>
+    
+
+    <button type="button" (click)="resetForm()">Reset</button>
+</form>
+<div>
+    <p *ngIf="matchForm?.valid && isSubmitted" class="success">{{successMessage}}</p>
+    <p *ngIf="matchForm?.invalid && isSubmitted" class="error">{{errorMessage}}</p>
+</div>

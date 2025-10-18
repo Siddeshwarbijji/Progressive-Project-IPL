@@ -1,0 +1,38 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" formControlName="fullName" name="fullName">
+    <div *ngIf="f['fullName'].invalid && f['fullName'].touched">
+        <small *ngIf="f['fullName']?.errors?.['required']">Full Name is required</small>
+        <small *ngIf="f['fullName']?.errors?.['pattern']">Full Name should not contain special characters.</small>
+    </div>
+
+    <label for="username">Username</label>
+    <input type="text" id="username" formControlName="username" name="username">
+    <div *ngIf="f['username'].invalid && f['username'].touched">
+        <small *ngIf="f['username']?.errors?.['required']">Username is required.</small>
+        <small *ngIf="f['username']?.errors?.['pattern']">Username should not contain special characters.</small>
+    </div>
+
+    <label for="email">Email</label>
+    <input type="text" id="email" formControlName="email" name="email">
+    <div *ngIf="f['email'].invalid && f['email'].touched">
+        <small *ngIf="f['email']?.errors?.['required']">Email is required.</small>
+        <small *ngIf="f['email']?.errors?.['email']">Email must be valid.</small>
+    </div>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password" name="password">
+    <div *ngIf="f['password'].invalid && f['password'].touched">
+        <small *ngIf="f['password']?.errors?.['required']">Password is required.</small>
+        <small *ngIf="f['password']?.errors?.['pattern']">Password should contain atleast one uppercase, one lowercase,one special characters.</small>
+    </div>
+
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+    <div>
+        <p *ngIf="successMessage" class="success">{{successMessage}}</p>
+        <p *ngIf="errorMessage" class="success">{{errorMessage}}</p>
+    </div>
+
+    <a routerLink="/auth" class="task-list">Login</a>
+</form>

@@ -1,0 +1,63 @@
+<h3>Create Cricketer</h3>
+<form [formGroup]="cricketerForm" (ngSubmit)="onSubmit()">
+
+    <label for="teamId">Cricketer Name:</label>
+    <input type="number" id="teamId" name="teamId" formControlName="teamId" required>
+    <div>
+        <small *ngIf="teamId?.invalid && teamId?.touched">Team ID is required.</small>
+    </div>
+
+
+    <label for="cricketerName">Cricketer Name:</label>
+    <input type="text" id="cricketerName" name="cricketerName" formControlName="cricketerName" required>
+    <div>
+        <small *ngIf="cricketerName?.invalid && cricketerName?.touched">Cricketer Name is required.</small>
+    </div>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" formControlName="age" required>
+    <div>
+        <small *ngIf="age?.invalid && age?.touched">Age is required.</small>
+    </div>
+
+    <label for="nationality">Nationality:</label>
+    <input type="text" id="nationality" name="nationality" formControlName="nationality" required>
+    <div>
+        <small *ngIf="nationality?.invalid && nationality?.touched">Nationality is required.</small>
+    </div>
+
+    <label for="experience">Experience:</label>
+    <input type="text" id="experience" name="experience" formControlName="experience" required>
+    <div>
+        <small *ngIf="experience?.invalid && experience?.touched">Experience is required.</small>
+        <small *ngIf="experience?.errors?.['min']">Experience should be non-negative.</small>
+    </div>
+
+    <label for="role">Role:</label>
+    <input type="text" id="role" name="role" formControlName="role" required>
+    <div>
+        <small *ngIf="role?.invalid && role?.touched">Role is required.</small>
+    </div>
+
+    <label for="totalRuns">Total Runs:</label>
+    <input type="number" id="totalRuns" name="totalRuns" formControlName="totalRuns" required>
+    <div>
+        <small *ngIf="totalRuns?.invalid && totalRuns?.touched">Total Runs is required.</small>
+    </div>
+
+    <label for="totalWickets">Total Wickets:</label>
+    <input type="number" id="totalWickets" name="totalWickets" formControlName="totalWickets" required>
+    <div>
+        <small *ngIf="totalWickets?.invalid && totalWickets?.touched">Total Wickets is required.</small>
+    </div>
+
+    <button type="submit" [disabled]="!cricketerForm.valid">Create Cricketer</button>
+    <a routerLink="/ipl" class="task-list" >Dashboard</a>
+    
+
+    <button type="button" (click)="resetForm()">Reset</button>
+</form>
+<div>
+    <p *ngIf="cricketerForm?.valid && isSubmitted" class="success">{{successMessage}}</p>
+    <p *ngIf="cricketerForm?.invalid && isSubmitted" class="error">{{errorMessage}}</p>
+</div>
